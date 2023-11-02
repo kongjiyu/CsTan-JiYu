@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RANDOM NUMBER</title>
+    <style>
+        body {
+            box-sizing: border-box;
+            font-size: 2em; 
+            background-color: lightcyan;
+            width: 100%;
+            text-align: center;     
+        }
+
+        div#random{
+            margin:10% 0;
+        }
+        table {
+            width: 80%;
+            margin: 0 5%;     
+            background-color: darkblue;
+            border-collapse: collapse;
+        }
+
+        div button{
+            background-color: darkcyan;
+            color: white;
+            padding: 1.06em 1.18em;
+            font-size:1.4em;
+            margin:5% 0;
+        }
+        div button:hover{
+            box-shadow: 1px 1px black;
+        }
+
+        th, td {
+            color: lightblue;
+            border: 1px solid cyan; 
+        }
+
+
+    </style>
+
+</head>
+<body>
+<div id="random">0</div><br/>
+<div id="button">
+    <button onclick="executeProg();">Click Here</button>
+</div>
+<table id="response"></table><br/>
+
+
+<script>
+    //DECLARATION
+    var limit;
+    var randomNum;
+    var display = setInterval(displayRand, 1000);
+    var store;
+    var fetchData = [];
+    
+    //DISPLAY Random Number
+    function displayRand() {
+        randomNum = Math.floor(Math.random() * 10) + 1;
+        document.getElementById("random").innerHTML = randomNum;
+    }
+    
+    //STORE DATA
+    function storeData() {
+        if (limit === 5) {
+            clearInterval(store);
+            Live(JSON.stringify(fetchData));
+        }
+        else{
+            fetchData.push(randomNum);
+            limit++;
+        }
+        
+    }
+
+    //AJAX
+    function Live(passByValue){
+        try{
+            var xmlhttp=new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState==4 && this.status==200) 
+                    document.getElementById("response").innerHTML += this.responseText;
+            }
+            xmlhttp.open("GET","database.php?content=" + passByValue,true);
+            xmlhttp.send();
+            document.getElementById("test").innerHTML += "Success";
+        }
+        catch(err){
+            document.getElementById("error").innerHTML = err.message;
+        }    
+    }
+
+    //EXECUTE Program
+    function executeProg() {
+        //RESET
+        limit = 0;
+        clearInterval(display);
+        clearInterval(store);
+        display = setInterval(displayRand, 1000);
+        store = setInterval(storeData, 1000);
+        document.getElementById("test").innerHTML += "Success";
+    }
+</script>
+
+</body>
+</html>
