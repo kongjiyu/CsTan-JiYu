@@ -1,0 +1,53 @@
+body div.grid {
+  display: grid;
+  grid-template-areas: "aside header header header header" "aside content content content MarkUp" "aside footer footer footer MarkUp";
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
+}
+body div.grid .header {
+  border: 1px lightgray solid;
+  grid-area: header;
+  grid-template-areas: "Search Search Search Search Icon";
+  position: sticky;
+  top: 0;
+  z-index: 5;
+}
+body div.grid .header li form button,
+body div.grid .header li form input {
+  border: none;
+  background-color: transparent;
+}
+body div.grid .header li form input[type=text]:focus {
+  outline: none;
+}
+body div.grid .header .search {
+  grid-area: Search;
+}
+body div.grid .header .icon {
+  grid-area: Icon;
+}
+body div.grid .left {
+  border: 1px lightgray solid;
+  grid-area: aside;
+  position: sticky;
+  left: 0;
+  z-index: 3;
+}
+body div.grid .right {
+  border: 1px lightgray solid;
+  grid-area: MarkUp;
+  height: 100vh;
+  position: sticky;
+  right: 0;
+  z-index: 4;
+}
+body div.grid .footer {
+  border: 1px lightgray solid;
+  grid-area: footer;
+  z-index: 1;
+}
+body div.grid .content {
+  border: 1px lightgray solid;
+  grid-area: content;
+  z-index: 2;
+}/*# sourceMappingURL=UIDesign.css.map */
